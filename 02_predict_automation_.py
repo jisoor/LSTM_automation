@@ -36,6 +36,7 @@ asset_class = [('^AORD', 'ALL ORDINARIES'), ('^BFX', 'BEL 20'), ('^FCHI', 'CAC 4
 # 종가만 가져와서 예측케 하기.
 
 # ticker_list = input('예측을 원하는 종목을 모두 입력하시오.')
+# User 입력란 두개
 ticker_list = ['KE=F','^AORD',  'SI=F']
 a = input('예측을 원하는 날짜을 입력하시오 YYYY-MM-DD (오늘/어저께/그저께) ')
 
@@ -95,8 +96,6 @@ for ticker, name in selected_assets:
     Today = str(Today)
     df.loc[Today] = [tmr_predicted_value, np.nan, np.nan, np.nan]
     # if df.shape[0] > 1:
-    # Nan값으로 채워진 데이터프레임 깡통 만들기.
-    # 인덱스의 이름이 '예측을 실행하는 날짜' 이고 인덱스는 '예측치' '실제치' '잔차' '예측할 날짜' 네 개임
     # 인덱스가 20개가 되면 자동으로 플롯이 만들어지고 (잔차에 대한 절댓값)
 
     #     previous_row = df.shape[0]-2    # 현재 예측치 까지 추가한 데이터프레임에서 현재 행 바로 이전행의 넘버값.
@@ -116,19 +115,9 @@ for ticker, name in selected_assets:
 
     print(df)
     # 새로 만들어진 데이터 프레임 저장
-    df.to_csv('./close_price/predict_df/{}_predict_actual_df.csv', index=True)
+    df.to_csv('./close_price/predict_df/{}_predict_actual_df.csv'.format(name), index=True)
 
 
-# 인2덱스의 이름이 '예측하는 날짜' 이고 인덱스는 '예측치' '실제치' '잔차' 세개 임
-# 인덱스가 20개가 되면 자동으로 플롯이 만들어지고 (잔차에 대한 절댓값)
-
-data = { '종목': [name],
-         'High' : ['high'] }
-predict_4_df = pd.DataFrame(data)
-predict_4_df.set_index('종목', inplace=True)
-predict_4_df.columns.name = '예측치'
-
-# 각각의 column을 예측해주는 과정 및 모든 예측결과를 데이터프레임으로 save_predict_tmr 폴더에 저장해준다,
 
 
 
