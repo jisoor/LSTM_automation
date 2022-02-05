@@ -49,15 +49,11 @@ print(selected_assets)   # 튜플로 가져오기 [('^IXIC', 'NASDAQ Composite')
 
 
 for ticker, name in selected_assets:
-    # Nan값으로 채워진 데이터프레임 깡통 만들기.
-    # 인덱스의 이름이 '예측을 실행하는 날짜' 이고 인덱스는 '예측치' '실제치' '잔차' '예측할 날짜' 네 개임
-    # 인덱스가 20개가 되면 자동으로 플롯이 만들어지고 (잔차에 대한 절댓값)
-    df_columns = ['예측을 실행하는 날짜', '예측치', '실제치', '잔차', '예측할 날짜']
-    df = pd.DataFrame(columns=df_columns)
-    df = df.set_index('예측을 실행하는 날짜')
+    # df 불러오기
+    df = pd.read_csv('./close_price/predict_df/{}_predict_actual_df.csv'.format(name), index_col=0)
     print(df)
 
-    # updated 데이터 먼저 가져오기(맨처음에 마지막60개 저장한 그 csv)
+    # updated 데이터 가져오기(맨처음에 마지막60개 저장한 그 csv)
     updated_Close = pd.read_csv('./close_price/updated/{}_{}_updated.csv'.format(name, 'Adj Close'))
     updated_Close['Date'] = pd.to_datetime(updated_Close['Date'])
     updated_Close.set_index('Date', inplace=True)
@@ -66,7 +62,7 @@ for ticker, name in selected_assets:
     Today = datetime.date.today()
     last_date_from_previous_df = pd.to_datetime(updated_Close.index[-1]).date()  # 01.25일
     one_day = datetime.timedelta(days=1)
-    new_data = yf.download(ticker, start=last_date_from_previous_df - one_day, end=a)  #updated데이터의 마지막 날짜부터, 가장최신 데이터까지
+    new_data = yf.download(ticker, start=last_date_from_previous_df - one_day, end=a)  #updated데이터의 마지막 날짜부터,예측날짜-1까지
     print(new_data)
     print(type(a))  # str
     new_data.drop(['Open', 'High', 'Low', 'Close', 'Volume'], axis=1, inplace=True)
@@ -99,6 +95,10 @@ for ticker, name in selected_assets:
     Today = str(Today)
     df.loc[Today] = [tmr_predicted_value, np.nan, np.nan, np.nan]
     # if df.shape[0] > 1:
+    # Nan값으로 채워진 데이터프레임 깡통 만들기.
+    # 인덱스의 이름이 '예측을 실행하는 날짜' 이고 인덱스는 '예측치' '실제치' '잔차' '예측할 날짜' 네 개임
+    # 인덱스가 20개가 되면 자동으로 플롯이 만들어지고 (잔차에 대한 절댓값)
+
     #     previous_row = df.shape[0]-2    # 현재 예측치 까지 추가한 데이터프레임에서 현재 행 바로 이전행의 넘버값.
     #     # df 예측할 날짜 추가
     #     df.iloc[previous_row][3] = df.index[previous_row]
