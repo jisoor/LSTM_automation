@@ -116,6 +116,7 @@ for ticker, name in selected_assets:
     print(df)
     # 새로 만들어진 데이터 프레임 저장
     df.to_csv('./close_price/predict_df/{}_predict_actual_df.csv'.format(name), index=True)
+    # df.to_excel('./close_price/predict_df/{}_predict_actual_df.xslx'.format(name), index=True)
 
 
 
