@@ -31,13 +31,30 @@ asset_class = [('^AORD', 'ALL ORDINARIES'), ('^BFX', 'BEL 20'), ('^FCHI', 'CAC 4
             ('INR=X', 'USD-INR'), ('MXN=X', 'USD-MXN'), ('PHP=X', 'USD-PHP'), ('IDR=X', 'USD-IDR'), ('THB=X', 'USD-THB'),
             ('MYR=X', 'USD-MYR'), ('ZAR=X', 'USD-ZAR'), ('RUB=X', 'USD-RUB')]                                                       # 여기까지 currencies
 
+#
+top_20_mse = ['USD-CNY', 'CRUDE_OIL', 'USD-IDR', 'EUR-CHF', 'PLATINUM', 'PALLADIUM',
+       'GBP-JPY', 'USD-RUB', 'SOYBEAN', 'LUMBER', 'USD-PHP', 'US10YT',
+       'STI Index', 'Dow Jones Industrial Average', 'USD-ZAR', 'USD-JPY',
+       'FTSE 100', 'NASDAQ', 'DOW', 'MERVAL']
+top_20_mse_ticker = ['^DJI', '^FTSE', '^MERV', '^STI', 'CL=F', 'YM=F', 'LBS=F', 'NQ=F', 'PA=F', 'PL=F', 'ZS=F', 'ZN=F',
+                     'JPY=X', 'GBPJPY=X', 'EURCHF=X', 'CNY=X', 'PHP=X', 'IDR=X', 'ZAR=X', 'RUB=X']
+# top_20_lists = []
+# for asset in asset_class:
+#     if asset[1] in top_20_mse:
+#         mse_ob = asset[0]
+#         top_20_lists.append(mse_ob)
+#
+# print(top_20_lists)
+# print(len(top_20_lists))
 
 # 종목 입력시 , 종목과 이름으로 묶인 튜플을 가져와서 진행시키게 함
 # 종가만 가져와서 예측케 하기.
 
 # ticker_list = input('예측을 원하는 종목을 모두 입력하시오.')
 # User 입력란 두개
-ticker_list = ['KE=F','^AORD',  'SI=F']
+ticker_list = ['^DJI', '^FTSE', '^MERV', '^STI', 'CL=F', 'YM=F', 'LBS=F', 'NQ=F', 'PA=F', 'PL=F', 'ZS=F', 'ZN=F',
+                     'JPY=X', 'GBPJPY=X', 'EURCHF=X', 'CNY=X', 'PHP=X', 'IDR=X', 'ZAR=X', 'RUB=X']
+
 a = input('예측을 원하는 날짜을 입력하시오 YYYY-MM-DD (오늘/어저께/그저께) ')
 
 
